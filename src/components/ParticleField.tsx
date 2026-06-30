@@ -12,7 +12,8 @@ export default function ParticleField() {
       canvas.width = canvas.clientWidth * devicePixelRatio
       canvas.height = canvas.clientHeight * devicePixelRatio
     }
-    const particles = Array.from({ length: 80 }).map(() => ({
+    const particleCount = window.innerWidth < 768 ? 20 : 80;
+    const particles = Array.from({ length: particleCount }).map(() => ({
       x: Math.random(),
       y: Math.random(),
       r: Math.random() * 1.8 + 0.4,
@@ -38,6 +39,9 @@ export default function ParticleField() {
       frame++
       raf = requestAnimationFrame(draw)
     }
+
+    // Disable entirely on mobile to save battery and stop lag
+    if (window.innerWidth < 768) return
 
     resize()
     window.addEventListener('resize', resize)

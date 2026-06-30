@@ -5,7 +5,7 @@ export function LenisSetup() {
   try {
     const lenis = new Lenis({
       smoothWheel: true,
-      syncTouch: true,
+      syncTouch: false,
       lerp: 0.12,
     })
     let rafId = 0

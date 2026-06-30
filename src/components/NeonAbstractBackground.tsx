@@ -8,20 +8,23 @@ type Props = {
 export default function NeonAbstractBackground({ scrollProgress }: Props) {
   const reduce = useReducedMotion()
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+  const disableAnim = reduce || isMobile
+
   const yPink = useSpring(
-    useTransform(scrollProgress, [0, 1], [0, reduce ? 0 : 72]),
+    useTransform(scrollProgress, [0, 1], [0, disableAnim ? 0 : 72]),
     { stiffness: 90, damping: 28 }
   )
   const yBlue = useSpring(
-    useTransform(scrollProgress, [0, 1], [0, reduce ? 0 : 110]),
+    useTransform(scrollProgress, [0, 1], [0, disableAnim ? 0 : 110]),
     { stiffness: 85, damping: 26 }
   )
   const yBlend = useSpring(
-    useTransform(scrollProgress, [0, 1], [0, reduce ? 0 : 48]),
+    useTransform(scrollProgress, [0, 1], [0, disableAnim ? 0 : 48]),
     { stiffness: 95, damping: 30 }
   )
   const scale = useSpring(
-    useTransform(scrollProgress, [0, 1], [1, reduce ? 1 : 1.06]),
+    useTransform(scrollProgress, [0, 1], [1, disableAnim ? 1 : 1.06]),
     { stiffness: 80, damping: 32 }
   )
 
@@ -33,7 +36,7 @@ export default function NeonAbstractBackground({ scrollProgress }: Props) {
     >
       {/* Neon pink - top right */}
       <motion.div
-        className="absolute right-0 top-0 h-[85%] w-[60%] opacity-90 blur-[110px] animate-pulse"
+        className="absolute right-0 top-0 h-[85%] w-[60%] opacity-90 blur-[110px] md:animate-pulse"
         style={{
           y: yPink,
           background:

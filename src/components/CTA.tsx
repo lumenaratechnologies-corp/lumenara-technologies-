@@ -9,8 +9,10 @@ export default function CTA() {
     target: sectionRef,
     offset: ['start end', 'end start'],
   })
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+  const disableAnim = reduce || isMobile
   const gradientY = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 36]),
+    useTransform(scrollYProgress, [0, 1], [0, disableAnim ? 0 : 36]),
     { stiffness: 100, damping: 32 }
   )
 
